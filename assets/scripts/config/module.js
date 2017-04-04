@@ -1,0 +1,1 @@
+var wordCloudApp=angular.module('wordCloudApp',['gridster']);

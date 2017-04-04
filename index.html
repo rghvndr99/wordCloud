@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Word cloud</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+	<link type="text/css" rel="stylesheet" href="libraries/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="libraries/angular-gridster.min.css"/>
+	<link type="text/css" rel="stylesheet" href="libraries/font-awesome.min.css"/>
+	<link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body ng-app="wordCloudApp" ng-controller="wordCtrl" class="container">
+    
+    <div class="row">
+        <!--tag and tittle rendering-->
+        <div class="col-md-12" id="tag-list"></div>
+        <div class="col-md-12" id="title-list"></div>
+        <!--tag and tittle toggle button-->
+        <div class="btn-group btn-toggle">
+            <button class="btn">Tag Cloud</button>
+            <button class="btn btn-warning">
+                <i class="fa fa-refresh"></i>
+            </button>
+            
+            <button class="btn">Tittle Cloud</button>
+        </div>
+    </div>
+    <!--image rendering area-->
+    <div class="row">
+        <ul>
+            <li>
+                <img src=""/>
+                <!--image detail div-->
+            </li>
+        </ul>
+    </div>
+    <!--pagination-->
+    <div class="row page-nav">
+        <h3>
+            <span class="nav-arrow">
+                <i class="fa fa-arrow-circle-o-left"></i>
+            </span>
+            <span class="nav-arrow">
+                <i class="fa fa-arrow-circle-o-right"></i>
+            </span>
+        </h3>
+    </div>
+    
+</body>
+<script type="text/javascript" src="libraries/jquery.min.js"></script>
+<script type="text/javascript" src="libraries/angular.min.js"></script>
+<script type="text/javascript" src="libraries/angular-gridster.min.js"></script>
+<script src="libraries/d3.v3.min.js"></script>
+<script src="libraries/d3.layout.cloud.js"></script>
+<script type="text/javascript" src="assets/scripts/config/module.js"></script>
+<script type="text/javascript" src="assets/scripts/config/properties.js"></script>
+<script type="text/javascript" src="assets/scripts/factories/flickr_api.js"></script>
+<script type="text/javascript" src="assets/scripts/factories/photoFilter.js"></script>
+<script type="text/javascript" src="assets/scripts/factories/cloudRender.js"></script>
+<script type="text/javascript" src="assets/scripts/controllers/mainCtrl.js"></script>
+</html>
