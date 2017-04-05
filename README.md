@@ -18,4 +18,4 @@ Welcome to the wordCloud wiki!
   While rendering the page, one http request has been made which gives the details of images(tittle,tages,url,updated date etc).Basis of the response,two word clouds are created (one for tags and another for tittle).Additionally user can switch between tags and tittle.At the same time,images are rendered in specified area.Those images can be filtered  by clicking on tags/tittle.
 
 ****Output****
-![word cloud ](C:/Users/rdixi4/Desktop/imgCloud.png)
+![word cloud](https://github.com/rghvndr99/wordCloud/blob/master/imgCloud.png)
