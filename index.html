@@ -10,36 +10,45 @@
 </head>
 <body ng-app="wordCloudApp" ng-controller="wordCtrl" class="container">
     
-    <div class="row">
+    <div class="row cloudWrapper">
         <!--tag and tittle rendering-->
-        <div class="col-md-12" id="tag-list"></div>
-        <div class="col-md-12" id="title-list"></div>
+        <div class="col-md-12 myCloud" id="tag-list" ng-class="{'none':!obj.tagCloudActive}"></div>
+        <div class="col-md-12 myCloud" id="title-list" ng-class="{'none':obj.tagCloudActive}"></div>
         <!--tag and tittle toggle button-->
         <div class="btn-group btn-toggle">
-            <button class="btn">Tag Cloud</button>
-            <button class="btn btn-warning">
+            <button class="btn" ng-class="{'btn-success':obj.tagCloudActive}" ng-click="obj.toggleCloud()">Tag Cloud</button>
+            <button class="btn btn-warning" ng-click="obj.resetFilter()" >
                 <i class="fa fa-refresh"></i>
             </button>
             
-            <button class="btn">Tittle Cloud</button>
+            <button class="btn" ng-class="{'btn-success':!obj.tagCloudActive}"  ng-click="obj.toggleCloud()">Tittle Cloud</button>
         </div>
     </div>
     <!--image rendering area-->
-    <div class="row">
+    <div class="row gridsterWrapper" gridster="obj.gridsterOpts">
         <ul>
-            <li>
-                <img src=""/>
+            <li gridster-item="obj.customMap" ng-repeat="image in obj.images[obj.page]|photoFilter:obj.filterName:obj.filterType" class="card pic">
+                <img ng-src="{{image.data.url}}"/>
                 <!--image detail div-->
+                <div class="details">
+                    <h4>
+                        {{image.data.date_upload}}
+                    </h4>
+                    <h3>
+                        {{image.data.owner_name}}
+                    </h3>
+                </div>
             </li>
         </ul>
     </div>
     <!--pagination-->
     <div class="row page-nav">
         <h3>
-            <span class="nav-arrow">
+            <span class="nav-arrow" ng-click="obj.navigate('prev')">
                 <i class="fa fa-arrow-circle-o-left"></i>
             </span>
-            <span class="nav-arrow">
+            <span class="badge">{{obj.page}}</span>
+            <span class="nav-arrow" ng-click="obj.navigate('next')">
                 <i class="fa fa-arrow-circle-o-right"></i>
             </span>
         </h3>
@@ -52,8 +61,8 @@
 <script src="libraries/d3.v3.min.js"></script>
 <script src="libraries/d3.layout.cloud.js"></script>
 <script type="text/javascript" src="assets/scripts/config/module.js"></script>
-<script type="text/javascript" src="assets/scripts/config/properties.js"></script>
-<script type="text/javascript" src="assets/scripts/factories/flickr_api.js"></script>
+<script type="text/javascript" src="assets/scripts/config/properities.js"></script>
+<script type="text/javascript" src="assets/scripts/factories/flicker_api.js"></script>
 <script type="text/javascript" src="assets/scripts/factories/photoFilter.js"></script>
 <script type="text/javascript" src="assets/scripts/factories/cloudRender.js"></script>
 <script type="text/javascript" src="assets/scripts/controllers/mainCtrl.js"></script>

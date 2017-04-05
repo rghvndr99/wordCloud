@@ -10,7 +10,7 @@ wordCloudApp.factory("flickerApi",["$http","$q","props",function($http,$q,props)
                 url: this.base_url+'?method=flickr.photos.getRecent&api_key='+ this.api_key +'&per_page=' + this.per_page + '&page='+ page +'&format=json&nojsoncallback=1&extras=owner_name%2Cdate_upload%2Ctags'
             }).then(
                 function(response){
-                    if(response.data.state=="ok")
+                    if(response.data.stat=="ok")
                         def.resolve({data:response.data});
                     else 
                         def.reject({error:response})

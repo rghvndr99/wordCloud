@@ -1,6 +1,6 @@
 wordCloudApp.controller('wordCtrl',['$scope','$http','flickerApi','cloudfactory','props',function($scope,$http,flickerApi,cloudfactory,props){
     /*initializing variable*/
-  var gridster_row = 0, gridster_column = 0, url = "", img = {}, tags = [], titleArray = [], owner ="", uploaded;
+  var gridster_row = 0, gridster_column = 0, url = "", img = {}, tags = [], tittleArray = [], owner ="", uploaded;
     $scope.obj={};
     $scope.obj.tagCloudActive=true;
     $scope.obj.images={};
@@ -16,9 +16,10 @@ wordCloudApp.controller('wordCtrl',['$scope','$http','flickerApi','cloudfactory'
     
     $scope.obj.resetFilter=function(){
         $scope.obj.filterName="";
+        $('.cloudWrapper').find('text').removeClass('unhighlight')
     }
     
-    $scope.obj.toggleCloud=function{        $scope.obj.tagCloudActive=!$scope.obj.tagCloudActive;
+    $scope.obj.toggleCloud=function(){        $scope.obj.tagCloudActive=!$scope.obj.tagCloudActive;
     }
     
     //get photo from flicker api
@@ -56,14 +57,14 @@ wordCloudApp.controller('wordCtrl',['$scope','$http','flickerApi','cloudfactory'
                data:{
                    url:url,
                    tags:tags,
-                   tittleArray:titleArray,
+                   tittleArray:tittleArray,
                    owner_name:owner,
                    date_upload:uploaded
                }
            });
        }
        //create the word cloud
-       /*cloudfactory.createCloud($scope.obj.images,$scope.obj.page);*/
+       cloudfactory.createCloud($scope.obj.images,$scope.obj.page);
     },function(error){
        console.log(error);
    }); 
@@ -72,8 +73,31 @@ wordCloudApp.controller('wordCtrl',['$scope','$http','flickerApi','cloudfactory'
    $scope.obj.createArray=function(photo,option){
        return photo[option].split(" ");
    }
+   //navigation
+   $scope.obj.navigate=function(direction){
+       $scope.obj.filterName="";
+       if(direction=="next") $scope.obj.page+=1;
+       else if(direction=="prev"&&$scope.obj.page>1){
+           $scope.obj.page-=1;
+       }
+       else{
+           $scope.obj.page=1;
+       }
+       $scope.obj.loadImages();
+   }
+   //click event on text
+   $scope.obj.eventListeners=function(){
+       $('.cloudWrapper').on('click','text',function(e){
+           $('.cloudWrapper').find('text').addClass('unhighlight');
+           $(e.target).removeClass('unhighlight');
+           $scope.obj.filterName=$(e.target).html();
+           $scope.obj.filterType=$(e.target).parents('.myCloud').attr('id') == "tag-list" ? "tags" : "titleArray";
+           $scope.$digest();
+       });
+   }
+   
    $scope.obj.customMap=props.gridsterMap;
     $scope.obj.gridsterOpts=props.gridsterProps;
     $scope.obj.loadImages();
-    
+    $scope.obj.eventListeners();
 }]);
